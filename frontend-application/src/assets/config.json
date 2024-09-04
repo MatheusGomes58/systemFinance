@@ -1,0 +1,8 @@
+{
+    "AUTHCONFIG": {
+        "API_BASE_URL": "http://localhost:8000",
+        "LOGIN_URL": "/login/token",
+        "FORGOT_PASSWORD_URL": "/users/reset-password/",
+        "SIGN_UP_URL": "/users/"
+    }
+}

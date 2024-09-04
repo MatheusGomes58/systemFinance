@@ -12,16 +12,16 @@ def create_permission(permission: schemas.PermissionCreate, db: Session = Depend
 
 @router.get("/{permission_id}")
 def read_permission(permission_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(get_current_user)):
-    permission = db.query(Permission).filter(Permission.id == permission_id).first()
+    permission = db.query(PermissionResponse).filter(PermissionResponse.id == permission_id).first()
     if permission is None:
-        raise HTTPException(status_code=404, detail="Permissão não encontrada")
+        raise HTTPException(status_code=404, detail="Permission not found")
     return permission
 
 @router.put("/{permission_id}")
 def update_permission(permission_id: int, permission: schemas.PermissionCreate, db: Session = Depends(get_db), current_user: schemas.User = Depends(get_current_user)):
-    db_permission = db.query(Permission).filter(Permission.id == permission_id).first()
+    db_permission = db.query(PermissionResponse).filter(PermissionResponse.id == permission_id).first()
     if db_permission is None:
-        raise HTTPException(status_code=404, detail="Permissão não encontrada")
+        raise HTTPException(status_code=404, detail="Permission not found")
     db_permission.name = permission.name
     db.commit()
     db.refresh(db_permission)
@@ -29,9 +29,10 @@ def update_permission(permission_id: int, permission: schemas.PermissionCreate, 
 
 @router.delete("/{permission_id}")
 def delete_permission(permission_id: int, db: Session = Depends(get_db), current_user: schemas.User = Depends(get_current_user)):
-    db_permission = db.query(Permission).filter(Permission.id == permission_id).first()
+    db_permission = db.query(PermissionResponse).filter(PermissionResponse.id == permission_id).first()
     if db_permission is None:
-        raise HTTPException(status_code=404, detail="Permissão não encontrada")
+        raise HTTPException(status_code=404, detail="Permission not found")
     db.delete(db_permission)
     db.commit()
-    return {"message": "Permissão deletada com sucesso"}
+    return {"message": "PermissionResponse deleted successfully"}
+

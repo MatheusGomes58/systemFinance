@@ -8,6 +8,10 @@ from typing import Optional
 import os
 from auth.database import get_db
 from auth import crud
+import random
+import string
+from email.mime.text import MIMEText
+
 
 # Configurações
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key")
@@ -17,6 +21,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
 app = FastAPI()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def generate_temp_password(length: int = 8) -> str:
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for i in range(length))
 
 # Funções utilitárias
 def verify_password(plain_password: str, hashed_password: str) -> bool:
