@@ -40,11 +40,15 @@ class UserCreate(BaseModel):
 
 class UserUpdate(BaseModel):
     username: str
+    name: str
+    email: str
     password: str
 
 class User(BaseModel):
     id: int
     username: str
+    name: str
+    email: str
     hashed_password: str
     permissions: List[UserPermissionResponse]  # Inclui as permissões do usuário
 

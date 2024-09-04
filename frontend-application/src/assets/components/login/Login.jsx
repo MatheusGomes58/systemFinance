@@ -11,7 +11,6 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState('');
     const [isSingUp, setIsSingUp] = useState(false);
     const [isForgotPassword, setForgotPassword] = useState(false);
     const { login } = useAuth();
@@ -35,9 +34,9 @@ const Login = () => {
                 }
             );
     
-            const { access_token } = response.data;
+            const { access_token, name, id } = response.data;
     
-            login(access_token, username);
+            login(access_token, username, name, id);
     
             setPopUpType('success');
             setPopUpMessage('Login successful!');
@@ -98,7 +97,7 @@ const Login = () => {
             setPopUpMessage('Sign up successful! You can now log in.');
     
             // Optionally, you might want to reset the form or redirect the user here
-            setIsSignUp(false);
+            setIsSingUp(false);
     
         } catch (error) {
             console.error('Error during sign up:', error);
@@ -156,6 +155,7 @@ const Login = () => {
                     </div>
                     <button type="submit">Login</button>
                     <div className="links">
+                        New user?
                         <a href="#" onClick={() => setIsSingUp(true)}>Sign Up</a> {/* Changed to Sign Up */}
                     </div>
                 </form>

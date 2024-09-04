@@ -29,5 +29,5 @@ def login_for_access_token(user: schemas.UserCreate, db: Session = Depends(get_d
     # Atualiza o token e o tempo de expiração no banco de dados
     crud.update_user_token(db, db_user.id, access_token, datetime.utcnow() + access_token_expires)
 
-    return {"access_token": access_token, "token_expires": access_token_expires, "username": db_user.username, "userId": db_user.id}
+    return {"access_token": access_token, "token_expires": access_token_expires, "username": db_user.username, "userId": db_user.id, "name": db_user.name}
 

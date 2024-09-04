@@ -27,6 +27,8 @@ def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(ge
         raise HTTPException(status_code=404, detail="User not found")
     db_user.username = user.username
     db_user.hashed_password = crud.hash_password(user.password)
+    db_user.name = user.name
+    db_user.email = user.email
     db.commit()
     db.refresh(db_user)
     return schemas.UserResponseCreated(username=db_user.username, id=db_user.id)
