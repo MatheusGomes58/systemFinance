@@ -3,25 +3,39 @@ from sqlalchemy.orm import Session
 from auth import crud, schemas
 from auth.database import get_db
 from auth.utils import get_current_user, generate_temp_password
+from typing import List
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 @router.post("/", response_model=schemas.UserResponseCreated)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     try:
-        return crud.create_user(db, user)
+        # Criar usuário e retornar resposta
+        created_user = crud.create_user(db, user)
+        return schemas.UserResponseCreated(id=created_user.id, username=created_user.username)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.get("/{user_id}")
+@router.get("/{user_id}", response_model=schemas.UserResponse)
 def read_user(user_id: int, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
     user = crud.get_user(db, user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return schemas.UserResponseCreated(username=user.username, id=user.id)
+    return schemas.UserResponse(
+        id=user.id,
+        username=user.username,
+        name=user.name,
+        email=user.email,
+        permissions=[schemas.UserPermissionResponse(
+            id=perm.id,
+            user_id=perm.user_id,
+            permission_id=perm.permission_id,
+            permission=schemas.PermissionResponse(id=perm.permission.id, name=perm.permission.name)
+        ) for perm in user.permissions]
+    )
 
-@router.put("/{user_id}")
-def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db), current_user: schemas.UserCreate = Depends(get_current_user)):        
+@router.put("/{user_id}", response_model=schemas.UserResponseCreated)
+def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db), current_user: schemas.UserCreate = Depends(get_current_user)):
     db_user = crud.get_user(db, user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -31,7 +45,7 @@ def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(ge
     db_user.email = user.email
     db.commit()
     db.refresh(db_user)
-    return schemas.UserResponseCreated(username=db_user.username, id=db_user.id)
+    return schemas.UserResponseCreated(id=db_user.id, username=db_user.username)
 
 @router.delete("/{user_id}")
 def delete_user(user_id: int, db: Session = Depends(get_db), current_user: schemas.UserCreate = Depends(get_current_user)):
@@ -54,4 +68,20 @@ def reset_password(user: schemas.UserResetPassword, db: Session = Depends(get_db
     db.commit()
     db.refresh(db_user)
     
-    return {"message": "Your password has been temporarily reset to: " + temp_password }
+    return {"message": "Your password has been temporarily reset. Please check your email for the new password."}
+
+@router.get("/", response_model=List[schemas.UserResponse])
+def list_users(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+    users = crud.get_all_users(db)
+    return [schemas.UserResponse(
+        id=user.id,
+        username=user.username,
+        name=user.name,
+        email=user.email,
+        permissions=[schemas.UserPermissionResponse(
+            id=perm.id,
+            user_id=perm.user_id,
+            permission_id=perm.permission_id,
+            permission=schemas.PermissionResponse(id=perm.permission.id, name=perm.permission.name)
+        ) for perm in user.permissions]
+    ) for user in users]

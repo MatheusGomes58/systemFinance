@@ -8,19 +8,19 @@ import Home from './components/home/Home';
 import './css/App.css';
 
 function App() {
-  const location = useLocation();
+    const location = useLocation();
 
-  return (
-    <AuthProvider>
-      <div className="App">
-        {location.pathname !== '/login' && <Navbar />}
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-        </Routes>
-      </div>
-    </AuthProvider>
-  );
+    return (
+        <AuthProvider>
+            <div className="App">
+                {location.pathname !== '/login' && <Navbar />}
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<ProtectedRoute element={<Home />} />} />
+                </Routes>
+            </div>
+        </AuthProvider>
+    );
 }
 
 export default App;

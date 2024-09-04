@@ -1,75 +1,65 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
+class BaseUser(BaseModel):
+    id: Optional[int] = None
+    username: Optional[str] = None
+    name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    hashed_password: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 class PermissionResponse(BaseModel):
-    id: int
-    name: str
+    id: Optional[int] = None
+    name: Optional[str] = None
 
     class Config:
         from_attributes = True
 
 class UserPermissionResponse(BaseModel):
-    id: int
-    user_id: int
-    permission_id: int
-    permission: PermissionResponse  # Inclui os detalhes da permissão
+    id: Optional[int] = None
+    user_id: Optional[int] = None
+    permission_id: Optional[int] = None
+    permission: Optional[PermissionResponse] = None  # Inclui os detalhes da permissão
 
     class Config:
         from_attributes = True
 
-class UserResponse(BaseModel):
-    id: int
-    username: str
-    permissions: List[UserPermissionResponse]  # Inclui as permissões do usuário
+class UserResponse(BaseUser):
+    permissions: Optional[List[UserPermissionResponse]] = None  # Inclui as permissões do usuário
 
-    class Config:
-        from_attributes = True
-
-class UserResponseCreated(BaseModel):
-    id: int
-    username: str
+class UserResponseCreated(BaseUser):
+    pass
 
 class UserResetPassword(BaseModel):
-    username: str
+    username: Optional[str] = None
 
 class UserCreate(BaseModel):
-    username: str
-    password: str
+    username: Optional[str] = None
+    password: Optional[str] = None
 
-class UserUpdate(BaseModel):
-    username: str
-    name: str
-    email: str
-    password: str
-
-class User(BaseModel):
-    id: int
-    username: str
-    name: str
-    email: str
-    hashed_password: str
-    permissions: List[UserPermissionResponse]  # Inclui as permissões do usuário
-
-    class Config:
-        from_attributes = True
+class UserUpdate(BaseUser):
+    pass
 
 class UserToken(BaseModel):
-    access_token: str
-    token_type: str
-    expires_at: datetime
+    access_token: Optional[str] = None
+    token_type: Optional[str] = None
+    expires_at: Optional[datetime] = None
 
 class PermissionCreate(BaseModel):
-    name: str
+    name: Optional[str] = None
 
 class UserPermission(BaseModel):
-    id: int
-    user_id: int
-    permission_id: int
+    id: Optional[int] = None
+    user_id: Optional[int] = None
+    permission_id: Optional[int] = None
 
     class Config:
         from_attributes = True
 
 class TokenData(BaseModel):
-    username: str
+    username: Optional[str] = None

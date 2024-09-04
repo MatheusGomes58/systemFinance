@@ -5,7 +5,7 @@ import logo from '../../images/logo.png';
 import { useAuth } from '../../context/AuthContext';
 import '../../css/Login.css';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import config from '../../config.json'; // Import your JSON config file
+import config from '../../../config.json'; // Import your JSON config file
 
 const Login = () => {
     const [username, setUsername] = useState('');

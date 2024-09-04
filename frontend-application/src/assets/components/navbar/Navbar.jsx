@@ -22,14 +22,16 @@ const Navbar = () => {
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="/estimates">Estimates</a></li>
-                        <li><a href="/pricing">Products</a></li>
+                        <li><a href="/products">Products</a></li>
+                        <li><a href="/customers">Customers</a></li>
+                        <li><a href="/users">Users</a></li>
                     </ul>
                 </nav>
             </div>
             <div className="header-right">
                 {auth.username && (
                     <>
-                        <span className="username">{auth.name}</span>
+                        <span className="username">Olá, {auth.name? auth.name : auth.username}</span>
                         <button onClick={handleLogout} className="logout-button">Logout</button>
                     </>
                 )}
