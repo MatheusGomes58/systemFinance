@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  db:
+    image: postgres-image
+    container_name: Database
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: systemFinance
+    volumes:
+      - ./localdatabase-aplication/Database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  keycloak:
+    image: keycloak-image 
+    container_name: Keycloak
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: db
+      DB_DATABASE: systemFinance
+      DB_USER: admin
+      DB_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    command: ["start-dev"]
+    depends_on:
+      - db

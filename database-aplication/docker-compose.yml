@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  customerdb:
+    image: postgres-image
+    container_name: Database_Customerdb
+    restart: always
+    environment:
+      POSTGRES_USER: customerdb_user
+      POSTGRES_PASSWORD: customerdb_pwd
+      POSTGRES_DB: customerdb
+    volumes:
+      - ./customerdb/Database:/var/lib/postgresql/data
+    ports:
+      - "5030:5432"
+  authdb:
+    image: postgres-image
+    container_name: Database_Authdb
+    restart: always
+    environment:
+      POSTGRES_USER: autenticatordb_user
+      POSTGRES_PASSWORD: autenticatordb_pwd
+      POSTGRES_DB: autenticatordb
+    volumes:
+      - ./autenticatordb/Database:/var/lib/postgresql/data
+    ports:
+      - "5031:5432"
