@@ -102,3 +102,8 @@
 .selected-suggestion svg {
     margin-right: 5px;
 }
+
+.suggestions-btn{
+    display: flex;
+    flex-direction: row;
+}

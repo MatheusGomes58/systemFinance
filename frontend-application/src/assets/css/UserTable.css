@@ -1,7 +1,7 @@
 .user-table-container {
     text-align: right;
-    overflow-y: auto;
-    height: 100%;
+    overflow-y: auto; /* Alterado para 'auto' para habilitar a rolagem se necessário */
+    max-height: 100%;
 }
 
 /* Estiliza a barra de rolagem */

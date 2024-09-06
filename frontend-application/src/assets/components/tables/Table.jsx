@@ -8,7 +8,7 @@ export const handleSearch = (query, json, setFilteredUsers, setTotalItems, setCu
     if (typeof query === 'string') {
         query = JSON.parse(query);
     }
-    
+
     let filtered = [];
 
     // Filtra os usuários baseados na query
@@ -36,13 +36,11 @@ export const Table = ({ query, paginatedUsers, handleAddUser }) => {
     }
 
     return (
-        <div>
-            {query.Users !== undefined && (
-                <UserTable
-                    users={paginatedUsers}
-                    onAddUser={handleAddUser}
-                />
-            )}
-        </div>
+        query.Users !== undefined && (
+            <UserTable
+                users={paginatedUsers}
+                onAddUser={handleAddUser}
+            />
+        )
     );
 };

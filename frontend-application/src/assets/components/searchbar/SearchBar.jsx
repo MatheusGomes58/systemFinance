@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../../css/SearchBar.css';
-import { FaSearch, FaTimes, FaBox, FaUser, FaUsers, FaFileInvoice } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaBox, FaUser, FaUsers, FaFileInvoice, FaChevronDown } from 'react-icons/fa';
 
 const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
     const [inputValue, setInputValue] = useState('');
     const [selectedSuggestion, setSelectedSuggestion] = useState(null);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [backspaceCount, setBackspaceCount] = useState(0); // Adiciona o contador de backspace
+    const [backspaceCount, setBackspaceCount] = useState(0);
     const inputRef = useRef(null);
 
     const data = [
@@ -21,7 +21,9 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
         setInputValue(value);
         if (value.length > 0) {
             handleSearch(selectedSuggestion?.label || '');
-            setBackspaceCount(0); // Reseta o contador quando houver valor no input
+            setBackspaceCount(0);
+        } else {
+            setShowSuggestions(false);
         }
     };
 
@@ -44,27 +46,25 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
         setSelectedSuggestion(null);
         setShowSuggestions(false);
         onClear();
-        setBackspaceCount(0); // Reseta o contador ao limpar
+        setBackspaceCount(0);
     };
 
     const handleKeyDown = (e) => {
         if (e.key === 'Backspace') {
             if (inputValue === '') {
-                // Se o input estiver vazio, contamos as vezes que o backspace é pressionado
                 if (backspaceCount === 0) {
-                    setBackspaceCount(1); // Primeira vez que o backspace é pressionado, nada acontece
+                    setBackspaceCount(1);
                 } else {
-                    setSelectedSuggestion(null); // Segunda vez, remove a sugestão
+                    setSelectedSuggestion(null);
                     handleClear();
-                    setBackspaceCount(0); // Reseta o contador
+                    setBackspaceCount(0);
                 }
             } else {
-                // Quando o input ainda tem algum valor, apagamos normalmente e resetamos o contador
                 setInputValue(inputValue.slice(0, -1));
-                setBackspaceCount(0); // Reseta o contador se houver input
+                setBackspaceCount(0);
             }
         } else {
-            setBackspaceCount(0); // Reseta o contador se outra tecla for pressionada
+            setBackspaceCount(0);
         }
     };
 
@@ -80,9 +80,7 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
     }, []);
 
     const toggleSuggestions = () => {
-        if (inputValue || selectedSuggestion) {
-            setShowSuggestions(prev => !prev);
-        }
+        setShowSuggestions((prev) => !prev);
     };
 
     const isInputDisabled = !selectedSuggestion;
@@ -96,20 +94,21 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
     return (
         <div className="search-bar-container">
             <div className="search-bar">
-                {selectedSuggestion && (
-                    <div className="selected-suggestion">
-                        {selectedSuggestion.icon} {selectedSuggestion.label}
-                    </div>
-                )}
+                <button className="suggestions-btn" onClick={toggleSuggestions}>
+                    {selectedSuggestion && (
+                        <div className="selected-suggestion">
+                            {selectedSuggestion.icon} {selectedSuggestion.label}
+                        </div>
+                    )}
+                    <FaChevronDown />
+                </button>
                 <input
                     type="text"
                     placeholder={placeholder}
                     value={inputValue}
                     onChange={handleInputChange}
-                    onClick={toggleSuggestions}
-                    onKeyDown={handleKeyDown} // Alterado para handleKeyDown
+                    onKeyDown={handleKeyDown}
                     readOnly={isInputDisabled}
-                    onFocus={() => setShowSuggestions(true)}
                     ref={inputRef}
                 />
                 <button className="clear-btn" onClick={handleClear}>
