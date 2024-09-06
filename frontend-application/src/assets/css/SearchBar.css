@@ -1,0 +1,104 @@
+.search-bar-container {
+    position: relative;
+    margin: 20px auto;
+    display: flex;
+    width: 80vw; /* Adicionado para garantir que o container tenha o mesmo tamanho da barra de pesquisa */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease-in-out;
+    width: 100%; /* Ajustado para ocupar a largura total do container */
+}
+
+.search-bar:focus-within {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.726);
+}
+
+.search-bar input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: transparent;
+}
+
+.search-bar input::placeholder {
+    color: #888;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 18px;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.search-bar button:hover {
+    color: #007bff77;
+}
+
+.clear-btn {
+    margin-right: 10px;
+}
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #007bff;
+}
+
+.suggestions li {
+    padding: 10px;
+    cursor: pointer;
+    display: flex; /* Adicionado para alinhar os ícones e o texto */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    transition: background-color 0.3s ease;
+}
+
+.suggestions li:hover {
+    background-color: #f0f0f0;
+}
+
+.suggestions li svg {
+    margin-right: 8px; /* Adicionado para dar espaço entre o ícone e o texto */
+    color: #007bff;
+}
+
+.searching-for {
+    font-style: italic;
+    padding: 10px;
+    color: rgba(90, 88, 88, 0.795);
+}
+
+.selected-suggestion {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #007bff;
+}
+
+.selected-suggestion svg {
+    margin-right: 5px;
+}

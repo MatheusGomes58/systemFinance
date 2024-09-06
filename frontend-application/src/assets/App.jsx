@@ -3,8 +3,8 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Navbar from './components/navbar/Navbar';
-import Login from './components/login/Login';
-import Home from './components/home/Home';
+import Login from './pages/login/Login';
+import Home from './pages/home/Home';
 import './css/App.css';
 
 function App() {

@@ -2,7 +2,7 @@ version: '3.7'
 services:
   customerdb:
     image: postgres-image
-    container_name: Database_Customerdb
+    container_name: customerdb
     restart: always
     environment:
       POSTGRES_USER: customerdb_user
@@ -14,7 +14,7 @@ services:
       - "5030:5432"
   authdb:
     image: postgres-image
-    container_name: Database_Authdb
+    container_name: autenticatordb
     restart: always
     environment:
       POSTGRES_USER: autenticatordb_user

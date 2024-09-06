@@ -7,9 +7,12 @@ from datetime import datetime
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_user_by_token(db: Session, token: str):
-    user_db = db.query(UserToken).filter(UserToken.access_token == token).first()
-    user_db = db.query(User).filter(User.id == user_db.user_id).first()
-    return user_db
+    try:
+        user_db = db.query(UserToken).filter(UserToken.access_token == token).first()
+        user_db = db.query(User).filter(User.id == user_db.user_id).first()
+        return user_db
+    except:
+        return None
 
 def get_all_users(db: Session):
     return db.query(User).all()

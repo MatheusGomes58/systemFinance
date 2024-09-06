@@ -21,10 +21,6 @@ const Navbar = () => {
                 <nav>
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/estimates">Estimates</a></li>
-                        <li><a href="/products">Products</a></li>
-                        <li><a href="/customers">Customers</a></li>
-                        <li><a href="/users">Users</a></li>
                     </ul>
                 </nav>
             </div>

@@ -2,7 +2,7 @@
 .home-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
     width: 100vw;
@@ -11,10 +11,93 @@
 
 .home-container h1 {
     font-size: 2rem;
-    color: #00796b;
+    color: black;
 }
 
 .home-container p {
     font-size: 1.2rem;
-    color: #004d40;
+    color: black;
 }
+
+.headerPage {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    background-color: rgb(203, 208, 214);
+    height: 40%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.headerPage.true {
+    height: 20%;
+}
+
+.home-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    height: 7%;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.home-footer-container{
+    margin: 20px;
+    margin-bottom: 30px;
+}
+
+.home-content{
+    height: 72%;
+    width: 100%;
+}
+
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100vw;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 250px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    margin: 60px;
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-text {
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.icon {
+    font-size: 150px;
+    color: #007bff;
+}
+
+.card-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    margin: 50px;
+}
+
