@@ -68,11 +68,11 @@
 }
 
 .user-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: lightgrey;
 }
 
 .user-table tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #007bffa4;
     cursor: pointer;
 }
 
