@@ -13,6 +13,13 @@ def get_user_by_token(db: Session, token: str):
         return user_db
     except:
         return None
+    
+def remove_user_token(db: Session, token: str):
+    user_db = db.query(UserToken).filter(UserToken.access_token == token).first()
+    if user_db:
+        db.delete(user_db)
+        db.commit()
+    return user_db
 
 def get_all_users(db: Session):
     return db.query(User).all()
@@ -98,3 +105,4 @@ def get_valid_user_token(db: Session, user_id: int):
 # Função para obter a permissão do usuário
 def get_user_permission(db: Session, user_id: int, permission_id: int):
     return db.query(UserPermission).filter(UserPermission.user_id == user_id, UserPermission.permission_id == permission_id).first()
+

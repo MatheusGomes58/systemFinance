@@ -17,17 +17,20 @@ const Navbar = () => {
     return (
         <div className="header-container">
             <div className="header-left">
-                <img src={logo} alt="Logo" className="logo" />
                 <nav>
                     <ul>
-                        <li><a href="/">Home</a></li>
+                        <li>
+                            <a href="/" className='logoHeader'>
+                                <img src={logo} alt="Logo" className="logo" />
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
             <div className="header-right">
                 {auth.username && (
                     <>
-                        <span className="username">Olá, {auth.name? auth.name : auth.username}</span>
+                        <span className="username">Olá, {auth.name ? auth.name : auth.username}</span>
                         <button onClick={handleLogout} className="logout-button">Logout</button>
                     </>
                 )}

@@ -42,10 +42,6 @@
     border-radius: 3px;
 }
 
-.header-left nav ul li a:hover {
-    background-color: #ddd;
-}
-
 .header-right {
     display: flex;
     align-items: center;

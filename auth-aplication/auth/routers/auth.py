@@ -49,3 +49,13 @@ def verify_token(token: str, db: Session = Depends(get_db)):
     crud.update_user_token(db, db_user.id, token, expires_at)
 
     return {"status": True, "expires_at": expires_at, "userId": db_user.id, "acesss_token": token, 'username': db_user.username}
+
+
+@router.delete("/logout")
+def logout(token: str, db: Session = Depends(get_db)):
+    if not token:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    crud.remove_user_token(db, token)
+
+    return {"message": "Logout realizado com sucesso"}

@@ -1,0 +1,83 @@
+.pop-up {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    min-width: 320px;
+    background-color: #f9f9f9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    opacity: 0;
+    transform: translateY(-20px);
+    z-index: 1000;
+    font-family: 'Arial', sans-serif;
+}
+
+.pop-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pop-up.success {
+    background-color: #e6ffed;
+    border-left: 6px solid #28a745;
+    color: #155724;
+}
+
+.pop-up.error {
+    background-color: #ffe6e6;
+    border-left: 6px solid #dc3545;
+    color: #721c24;
+}
+
+.pop-up .icon-success {
+    color: #28a745;
+    margin-right: 15px;
+    font-size: 1.8rem;
+}
+
+.pop-up .icon-error {
+    color: #dc3545;
+    margin-right: 15px;
+    font-size: 1.8rem;
+}
+
+.pop-up .message {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.pop-up .close-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s ease-in-out;
+}
+
+.pop-up .close-btn:hover {
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .pop-up {
+        min-width: 250px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        top: 10px;
+        right: 10px;
+    }
+
+    .pop-up .icon {
+        font-size: 1.5rem;
+    }
+
+    .pop-up .message {
+        font-size: 0.9rem;
+    }
+}

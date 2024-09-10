@@ -6,8 +6,8 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
     const [inputValue, setInputValue] = useState('');
     const [selectedSuggestion, setSelectedSuggestion] = useState(null);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [backspaceCount, setBackspaceCount] = useState(0);
     const inputRef = useRef(null);
+    const timerRef = useRef(null);
 
     const data = [
         { label: "Products", icon: <FaBox /> },
@@ -19,12 +19,14 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
     const handleInputChange = (e) => {
         const value = e.target.value;
         setInputValue(value);
-        if (value.length > 0) {
-            handleSearch(selectedSuggestion?.label || '');
-            setBackspaceCount(0);
-        } else {
-            setShowSuggestions(false);
+
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
         }
+
+        timerRef.current = setTimeout(() => {
+            handleSearch(selectedSuggestion?.label || '');
+        }, 500);
     };
 
     const handleSuggestionClick = (suggestion) => {
@@ -46,25 +48,11 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
         setSelectedSuggestion(null);
         setShowSuggestions(false);
         onClear();
-        setBackspaceCount(0);
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Backspace') {
-            if (inputValue === '') {
-                if (backspaceCount === 0) {
-                    setBackspaceCount(1);
-                } else {
-                    setSelectedSuggestion(null);
-                    handleClear();
-                    setBackspaceCount(0);
-                }
-            } else {
-                setInputValue(inputValue.slice(0, -1));
-                setBackspaceCount(0);
-            }
-        } else {
-            setBackspaceCount(0);
+        if (e.key === 'Escape') {
+            handleClear();
         }
     };
 
@@ -133,3 +121,4 @@ const SearchBar = ({ placeholder = "Search...", onSearch, onClear }) => {
 };
 
 export default SearchBar;
+

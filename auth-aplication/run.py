@@ -9,7 +9,7 @@ os.environ["DATABASE_PORT"] = "5031"
 os.environ["DATABASE_NAME"] = "autenticatordb"
 os.environ["SECRET_KEY"] = "your-secret-key"
 os.environ["ALGORITHM"] = "HS256"
-os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"] = "30"
+os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"] = "60"
 
 if __name__ == "__main__":
     # Rodando o servidor Uvicorn com reload utilizando uma string de importação
