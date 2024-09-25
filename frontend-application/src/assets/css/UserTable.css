@@ -1,12 +1,19 @@
+/* Container geral da tabela com rolagem horizontal */
 .user-table-container {
     text-align: right;
-    overflow-y: auto; /* Alterado para 'auto' para habilitar a rolagem se necessário */
+    overflow-y: auto;
+    overflow-x: auto; /* Permitir rolagem horizontal */
     max-height: 100%;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff; /* Fundo branco para contraste */
 }
 
-/* Estiliza a barra de rolagem */
+/* Barra de rolagem customizada */
 .user-table-container::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 
 .user-table-container::-webkit-scrollbar-thumb {
@@ -23,60 +30,99 @@
     border-radius: 10px;
 }
 
+/* Botão de adicionar usuário */
 .add-user-button {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px; /* Botão um pouco maior para toque móvel */
     margin: 15px;
     border: none;
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .add-user-button:hover {
     background-color: #0056b3;
+    transform: scale(1.05); /* Efeito de zoom no hover */
 }
 
-.user-container-table  {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
+/* Estilo da tabela */
 .user-table {
     border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 95%;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.user-table th, .user-table td {
-    padding: 16px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
+/* Cabeçalho da tabela */
 .user-table th {
     background-color: #007bff;
     color: white;
     font-weight: bold;
+    text-align: left;
+    padding: 16px;
     position: sticky;
     top: 0;
+    z-index: 2;
+    text-transform: uppercase; /* Transformar o texto em letras maiúsculas */
+    letter-spacing: 1px; /* Espaçamento entre letras */
 }
 
+/* Células da tabela */
+.user-table td {
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilo das linhas da tabela */
 .user-table tbody tr:nth-child(even) {
-    background-color: lightgrey;
+    background-color: #f9f9f9; /* Cor mais leve para linhas pares */
 }
 
+/* Efeito ao passar o mouse nas linhas */
 .user-table tbody tr:hover {
-    background-color: #007bffa4;
+    background-color: #007bff33;
     cursor: pointer;
 }
 
-.user-table td {
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+/* Botões de ação (detalhar, editar, deletar) */
+.action-button {
+    background-color: transparent;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 8px;
+    margin: 0 5px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Efeito ao passar o mouse nos botões de ação */
+.action-button:hover {
+    color: #007bff;
+    transform: scale(1.2); /* Zoom suave ao passar o mouse */
+}
+
+/* Tabela responsiva em telas menores */
+@media (max-width: 768px) {
+    .user-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap; /* Previne que as células quebrem em várias linhas */
+    }
+
+    .user-table th, .user-table td {
+        text-align: left; /* Textos alinhados à esquerda em telas pequenas */
+    }
+
+    .add-user-button {
+        width: 100%; /* Botão de largura total em telas pequenas */
+        padding: 12px;
+    }
 }

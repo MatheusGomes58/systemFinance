@@ -29,7 +29,7 @@ function App() {
     return (
         <AuthProvider>
             <div className="App">
-                {location.pathname !== '/login' && <Navbar />}
+                {location.pathname !== '/login' && <Navbar onLogoutMessage={addPopUpMessage} />}
                 <Routes>
                     <Route path="/login" element={<Login addPopUpMessage={addPopUpMessage} />} />
                     <Route path="/" element={<ProtectedRoute element={<Home />} />} />
